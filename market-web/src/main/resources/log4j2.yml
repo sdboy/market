@@ -1,0 +1,109 @@
+Configuration:
+  status: warn
+  monitorInterval: 30
+
+  Properties: # 定义全局变量
+    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定，如下：
+      # 测试：-Dlog.level.console=warn -Dlog.level.xjj=trace
+      # 生产：-Dlog.level.console=warn -Dlog.level.xjj=info
+      # 控制台日志输出的级别
+      - name: log.level.console
+        value: debug
+      # 日志文件存储的位置
+      - name: log.path
+        value: ${sys:catalina.home}
+      # 项目名称
+      - name: project.name
+        value: camera
+
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      ThresholdFilter:
+        # “sys:”表示：如果VM参数中没指定这个变量值，则使用本文件中定义的缺省全局变量值
+        level: ${sys:log.level.console}
+        onMatch: ACCEPT
+        onMismatch: DENY
+      PatternLayout:
+        pattern: '[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n'
+    File:
+      name: log
+      fileName: log/test.log
+      append: false
+      PatternLayout:
+        pattern: '%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n'
+    RollingFile:
+      - name: RollingFileDebug
+        fileName: ${sys:log.path}/logs/${sys:project.name}/debug.log
+        filePattern: ${sys:log.path}/logs/${sys:project.name}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log
+        # 如果ThresholdFilter的顺序不一样的话，输入的结果是不一样的！！！
+        # 因为经过ThresholdFilter的时候，如果有匹配项，则直接打印日志了，所以需要把高等级的日志级别放在前面
+        # 并且，onMatch属性设置为DENY，过滤掉高等级的日志；onMismatch设置为NEUTRAL，把低等级的日志放行，
+        # 到我们想要的级别后，onMache设为ACCEPT，获取到日志，并onMismatch设置为DENY，丢弃低等级日志，并执行结束
+        Filters:
+          ThresholdFilter:
+            - level: WARN
+              onMatch: DENY
+              onMismatch: NEUTRAL
+            - level: INFO
+              onMatch: ACCEPT
+              onMismatch: DENY
+        PatternLayout:
+          pattern: '[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n'
+        Policies:
+          # 按天分类
+          #          TimeBasedTriggeringPolicy:
+          #            modulate: true
+          #            interval: 1
+          # 输出到文件，超过128MB归档
+          SizeBasedTriggeringPolicy:
+            size: 128 MB
+        # DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了100
+        DefaultRolloverStrategy:
+          max: 100
+
+      - name: RollingFileWarn
+        fileName: ${sys:log.path}/logs/${sys:project.name}/warn.log
+        filePattern: ${sys:log.path}/logs/${sys:project.name}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log
+        Filters:
+          ThresholdFilter:
+            - level: ERROR
+              onMatch: DENY
+              onMismatch: NEUTRAL
+            - level: WARN
+              onMatch: ACCEPT
+              onMismatch: DENY
+        PatternLayout:
+          pattern: '[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n'
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 128 MB
+
+      - name: RollingFileError
+        fileName: ${sys:log.path}/logs/${project.name}/error.log
+        filePattern: ${sys:log.path}/logs/${project.name}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log
+        ThresholdFilter:
+          level: ERROR
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: '[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n'
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 128 MB
+
+  Loggers:
+    Logger:
+      - name: org.springframework
+        level: INFO
+    Logger:
+      - name: org.mybatis
+        level: INFO
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: Console
+        - ref: RollingFileDebug
+        - ref: RollingFileWarn
+        - ref: RollingFileError

@@ -1,0 +1,173 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # mysql
+      db1:
+        # jdbc配置
+        url: jdbc:mariadb://192.168.1.4:3306/market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+        username: root
+        password: 123456
+        driver-class-name: com.mariadb.jdbc.Driver
+
+        # 连接池配置
+        # 配置初始化大小、最大、最小
+        initial-size: 1
+        max-active: 10
+        min-idle: 1
+        # 配置获取连接等待超时的时间
+        max-wait: 5000
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        # 和上面的等价
+#        max-open-prepared-statements=
+        validation-query: select 'x'
+        validation-query-timeout: 5
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        max-evictable-idle-time-millis: 900000
+        # 配置监控统计拦截的filters，配置多个英文逗号分隔
+        filters: stat
+
+        # 监控配置
+        # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
+#        web-stat-filter:
+          # 是否启用StatFilter默认值false
+#          enabled:
+#          url-pattern:
+#          exclusions:
+#          session-stat-enable:
+#          session-stat-max-count:
+#          principal-session-name:
+#          principal-cookie-name:
+#          profile-enable:
+        # StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
+#        stat-view-servlet:
+          # 是否启用StatViewServlet（监控页面）默认值为false（考虑到安全问题默认并未启动，如需启用建议设置密码或白名单以保障安全）
+#          enabled:
+#          url-pattern:
+#          reset-enable:
+#          login-username:
+#          login-password:
+#          allow:
+#          deny:
+
+        # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+        # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+#        aop-patterns:
+
+      db2:
+        url: jdbc:mysql://198.168.127.128:3306/market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        # 连接池配置
+        initial-size: 1
+        max-active: 10
+        min-idle: 10
+        max-wait: 5000
+        pool-prepared-statements:
+        max-pool-prepared-statement-per-connection-size: 20
+        # 和上面的等价
+        #        max-open-prepared-statements=
+        validation-query:
+        validation-query-timeout:
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        max-evictable-idle-time-millis:
+        # 配置多个英文逗号分隔
+        filters: stat
+
+  freemarker:
+    request-context-attribute: req
+    suffix: .ftl
+    content-type: text/html
+    enabled: true
+    cache: false
+    check-template-location: true
+    template-loader-path: classpath:/templates/
+    charset: UTF-8
+    settings:
+      number_format: '0.##'
+
+  mvc:
+    static-path-pattern: /static/**
+  #  redis:
+  #    url:
+  #    timeout: 1000ms
+  #    ssl: false
+  #    port:
+  #    password:
+  #    host:
+  #    database: 0
+  #    cluster:
+  #      nodes: 6
+  #      max-redirects: 3
+  #    lettuce:
+  #      shutdown-timeout: 100ms
+  #      pool:
+  #        min-idle: 0
+  #        max-wait: -1ms
+  #        max-idle: 8
+  #        max-active: 8
+#  jms:
+#    pub-sub-domain: true
+#    listener:
+#      acknowledge-mode: auto
+#      concurrency: 3
+#      max-concurrency: 7
+#      auto-startup: false
+#    cache:
+#      enabled: true
+#      session-cache-size: 5
+#      producers: true
+#      consumers: true
+#  messages:
+#    basename: i18n/Messages,i18n/Pages
+#  activemq:
+#    broker-url:
+#    password:
+#    user:
+#    in-memory: false
+#    close-timeout: 5s
+#    pool:
+#      enabled: true
+#      idle-timeout: 5s
+#      time-between-expiration-check: -1ms
+#      max-connections: 5
+#      max-sessions-per-connection: 500
+
+#  security:
+#    user:
+#      name: ray
+#      password: jyg170228
+
+mybatis:
+  typeAliasesPackage: com.raysaber.market.dao
+  mapperLocations: classpath:mapper/*.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+logging:
+  config: classpath:log4j2.yml
