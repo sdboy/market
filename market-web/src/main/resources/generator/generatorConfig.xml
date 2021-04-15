@@ -183,7 +183,7 @@
 
             注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
     -->
-    <table tableName="hr" schema="employee">
+<!--    <table tableName="hr" schema="employee">-->
 
       <!-- 参考 javaModelGenerator 的 constructorBased属性。默认false-->
 <!--      <property name="constructorBased" value="false"/>-->
@@ -339,7 +339,10 @@
 
   </context>
   <context id="database2">
+    <jdbcConnection driverClass="" connectionURL=""></jdbcConnection>
     <javaModelGenerator targetPackage="" targetProject=""></javaModelGenerator>
+    <sqlMapGenerator targetPackage="" targetProject=""></sqlMapGenerator>
+    <javaClientGenerator type="" targetPackage="" targetProject=""></javaClientGenerator>
     <table tableName=""></table>
   </context>
 </generatorConfiguration>
