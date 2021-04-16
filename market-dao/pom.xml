@@ -29,7 +29,7 @@
 
   <dependencies>
     <!-- mybatis start -->
-    <dependency>
+    <!--<dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>${mybatis-spring-boot-starter.version}</version>
@@ -39,7 +39,7 @@
           <groupId>org.springframework.boot</groupId>
         </exclusion>
       </exclusions>
-    </dependency>
+    </dependency>-->
     <!-- mybatis end -->
     <!-- sql start -->
     <dependency>

@@ -14,45 +14,45 @@ spring:
     active: dev
 
   datasource:
-    # Ê¹ÓÃdruidÊı¾İÔ´
+    # ä½¿ç”¨druidæ•°æ®æº
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       # mysql
       db1:
-        # jdbcÅäÖÃ
+        # jdbcé…ç½®
         url: jdbc:mariadb://192.168.1.4:3306/market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
         driver-class-name: com.mariadb.jdbc.Driver
 
-        # Á¬½Ó³ØÅäÖÃ
-        # ÅäÖÃ³õÊ¼»¯´óĞ¡¡¢×î´ó¡¢×îĞ¡
+        # è¿æ¥æ± é…ç½®
+        # é…ç½®åˆå§‹åŒ–å¤§å°ã€æœ€å¤§ã€æœ€å°
         initial-size: 1
         max-active: 10
         min-idle: 1
-        # ÅäÖÃ»ñÈ¡Á¬½ÓµÈ´ı³¬Ê±µÄÊ±¼ä
+        # é…ç½®è·å–è¿æ¥ç­‰å¾…è¶…æ—¶çš„æ—¶é—´
         max-wait: 5000
         pool-prepared-statements: true
         max-pool-prepared-statement-per-connection-size: 20
-        # ºÍÉÏÃæµÄµÈ¼Û
+        # å’Œä¸Šé¢çš„ç­‰ä»·
 #        max-open-prepared-statements=
         validation-query: select 'x'
         validation-query-timeout: 5
         test-on-borrow: false
         test-on-return: false
         test-while-idle: true
-        # ÅäÖÃ¼ä¸ô¶à¾Ã²Å½øĞĞÒ»´Î¼ì²â£¬¼ì²âĞèÒª¹Ø±ÕµÄ¿ÕÏĞÁ¬½Ó£¬µ¥Î»ÊÇºÁÃë
+        # é…ç½®é—´éš”å¤šä¹…æ‰è¿›è¡Œä¸€æ¬¡æ£€æµ‹ï¼Œæ£€æµ‹éœ€è¦å…³é—­çš„ç©ºé—²è¿æ¥ï¼Œå•ä½æ˜¯æ¯«ç§’
         time-between-eviction-runs-millis: 60000
-        # ÅäÖÃÒ»¸öÁ¬½ÓÔÚ³ØÖĞ×îĞ¡Éú´æµÄÊ±¼ä£¬µ¥Î»ÊÇºÁÃë
+        # é…ç½®ä¸€ä¸ªè¿æ¥åœ¨æ± ä¸­æœ€å°ç”Ÿå­˜çš„æ—¶é—´ï¼Œå•ä½æ˜¯æ¯«ç§’
         min-evictable-idle-time-millis: 300000
         max-evictable-idle-time-millis: 900000
-        # ÅäÖÃ¼à¿ØÍ³¼ÆÀ¹½ØµÄfilters£¬ÅäÖÃ¶à¸öÓ¢ÎÄ¶ººÅ·Ö¸ô
+        # é…ç½®ç›‘æ§ç»Ÿè®¡æ‹¦æˆªçš„filtersï¼Œé…ç½®å¤šä¸ªè‹±æ–‡é€—å·åˆ†éš”
         filters: stat
 
-        # ¼à¿ØÅäÖÃ
-        # WebStatFilterÅäÖÃ£¬ËµÃ÷Çë²Î¿¼Druid Wiki£¬ÅäÖÃ_ÅäÖÃWebStatFilter
+        # ç›‘æ§é…ç½®
+        # WebStatFilteré…ç½®ï¼Œè¯´æ˜è¯·å‚è€ƒDruid Wikiï¼Œé…ç½®_é…ç½®WebStatFilter
 #        web-stat-filter:
-          # ÊÇ·ñÆôÓÃStatFilterÄ¬ÈÏÖµfalse
+          # æ˜¯å¦å¯ç”¨StatFilteré»˜è®¤å€¼false
 #          enabled:
 #          url-pattern:
 #          exclusions:
@@ -61,9 +61,9 @@ spring:
 #          principal-session-name:
 #          principal-cookie-name:
 #          profile-enable:
-        # StatViewServletÅäÖÃ£¬ËµÃ÷Çë²Î¿¼Druid Wiki£¬ÅäÖÃ_StatViewServletÅäÖÃ
+        # StatViewServleté…ç½®ï¼Œè¯´æ˜è¯·å‚è€ƒDruid Wikiï¼Œé…ç½®_StatViewServleté…ç½®
 #        stat-view-servlet:
-          # ÊÇ·ñÆôÓÃStatViewServlet£¨¼à¿ØÒ³Ãæ£©Ä¬ÈÏÖµÎªfalse£¨¿¼ÂÇµ½°²È«ÎÊÌâÄ¬ÈÏ²¢Î´Æô¶¯£¬ÈçĞèÆôÓÃ½¨ÒéÉèÖÃÃÜÂë»ò°×Ãûµ¥ÒÔ±£ÕÏ°²È«£©
+          # æ˜¯å¦å¯ç”¨StatViewServletï¼ˆç›‘æ§é¡µé¢ï¼‰é»˜è®¤å€¼ä¸ºfalseï¼ˆè€ƒè™‘åˆ°å®‰å…¨é—®é¢˜é»˜è®¤å¹¶æœªå¯åŠ¨ï¼Œå¦‚éœ€å¯ç”¨å»ºè®®è®¾ç½®å¯†ç æˆ–ç™½åå•ä»¥ä¿éšœå®‰å…¨ï¼‰
 #          enabled:
 #          url-pattern:
 #          reset-enable:
@@ -72,8 +72,8 @@ spring:
 #          allow:
 #          deny:
 
-        # Spring¼à¿ØÅäÖÃ£¬ËµÃ÷Çë²Î¿¼Druid Github Wiki£¬ÅäÖÃ_DruidºÍSpring¹ØÁª¼à¿ØÅäÖÃ
-        # Spring¼à¿ØAOPÇĞÈëµã£¬Èçx.y.z.service.*,ÅäÖÃ¶à¸öÓ¢ÎÄ¶ººÅ·Ö¸ô
+        # Springç›‘æ§é…ç½®ï¼Œè¯´æ˜è¯·å‚è€ƒDruid Github Wikiï¼Œé…ç½®_Druidå’ŒSpringå…³è”ç›‘æ§é…ç½®
+        # Springç›‘æ§AOPåˆ‡å…¥ç‚¹ï¼Œå¦‚x.y.z.service.*,é…ç½®å¤šä¸ªè‹±æ–‡é€—å·åˆ†éš”
 #        aop-patterns:
 
       db2:
@@ -81,14 +81,14 @@ spring:
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
-        # Á¬½Ó³ØÅäÖÃ
+        # è¿æ¥æ± é…ç½®
         initial-size: 1
         max-active: 10
         min-idle: 10
         max-wait: 5000
         pool-prepared-statements:
         max-pool-prepared-statement-per-connection-size: 20
-        # ºÍÉÏÃæµÄµÈ¼Û
+        # å’Œä¸Šé¢çš„ç­‰ä»·
         #        max-open-prepared-statements=
         validation-query:
         validation-query-timeout:
@@ -98,7 +98,7 @@ spring:
         time-between-eviction-runs-millis: 60000
         min-evictable-idle-time-millis: 300000
         max-evictable-idle-time-millis:
-        # ÅäÖÃ¶à¸öÓ¢ÎÄ¶ººÅ·Ö¸ô
+        # é…ç½®å¤šä¸ªè‹±æ–‡é€—å·åˆ†éš”
         filters: stat
 
   freemarker:
@@ -164,10 +164,23 @@ spring:
 #    user:
 #      name: ray
 #      password: jyg170228
+  aop:
+    auto: true
+    proxy-target-class: true
 
 mybatis:
-  typeAliasesPackage: com.raysaber.market.dao
-  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.raysaber.market.dao.db1,com.raysaber.market.dao.db2
+  mapperLocations: classpath:mapper/db1/*.xml,classpath:mapper/db2/*.xml,
   configLocation: classpath:mybatis/mybatis-config.xml
 logging:
   config: classpath:log4j2.yml
+  level:
+    root: INFO
+    javax.activation: info
+    org.apache.catalina: INFO
+    org.apache.commons.beanutils.converters: INFO
+    org.apache.coyote.http11.Http11Processor: INFO
+    org.apache.http: INFO
+    org.apache.tomcat: INFO
+    org.springframework: INFO
+    com.chinamobile.cmss.bdpaas.resource.monitor: DEBUG
