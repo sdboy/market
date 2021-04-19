@@ -166,10 +166,11 @@ spring:
 #      password: jyg170228
   aop:
     auto: true
+    # 强制采用CGLIB生成动态代理类(继承方法)
     proxy-target-class: true
 
 mybatis:
-  typeAliasesPackage: com.raysaber.market.dao.db1,com.raysaber.market.dao.db2
+  typeAliasesPackage: com.raysaber.market.bean
   mapperLocations: classpath:mapper/db1/*.xml,classpath:mapper/db2/*.xml,
   configLocation: classpath:mybatis/mybatis-config.xml
 logging:
