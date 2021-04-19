@@ -11,10 +11,10 @@ Configuration:
         value: debug
       # 日志文件存储的位置
       - name: log.path
-        value: ${sys:catalina.home}
+        value: E:/temp/logs
       # 项目名称
       - name: project.name
-        value: camera
+        value: market
 
   Appenders:
     Console:
