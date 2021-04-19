@@ -20,10 +20,10 @@ spring:
       # mysql
       db1:
         # jdbc配置
-        url: jdbc:mariadb://192.168.1.4:3306/market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://192.168.175.128:3306/permission?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
-        driver-class-name: com.mariadb.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
 
         # 连接池配置
         # 配置初始化大小、最大、最小
@@ -77,10 +77,10 @@ spring:
 #        aop-patterns:
 
       db2:
-        url: jdbc:mysql://198.168.127.128:3306/market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mariadb://192.168.1.4:3306/market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        driver-class-name: org.mariadb.jdbc.Driver
         # 连接池配置
         initial-size: 1
         max-active: 10

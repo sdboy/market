@@ -79,6 +79,7 @@
         <executions>
           <execution>
             <id>Generate MyBatis Artifacts</id>
+            <phase>deploy</phase>
             <goals>
               <goal>generate</goal>
             </goals>
@@ -90,10 +91,15 @@
           <verbose>true</verbose>
         </configuration>
         <dependencies>
+<!--          <dependency>-->
+<!--            <groupId>org.mariadb.jdbc</groupId>-->
+<!--            <artifactId>mariadb-java-client</artifactId>-->
+<!--            <version>2.7.2</version>-->
+<!--          </dependency>-->
           <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>2.7.2</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
           </dependency>
           <dependency>
             <groupId>org.mybatis</groupId>

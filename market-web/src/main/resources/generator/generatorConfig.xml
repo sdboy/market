@@ -11,13 +11,13 @@
         另外，如果使用了mybatis-generator-maven-plugin，那么在pom.xml中定义的properties都可以直接在generatorConfig.xml中使用
     <properties resource="" url="" />
   -->
-  <properties resource="" url="../application.yml" />
+  <properties resource="./generator/generator.properties"/>
 
   <!-- 在MBG工作的时候，需要额外加载的依赖包
        location属性指明加载jar/zip包的全路径
    <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />
   -->
-<!--  <classPathEntry location="F:\\mvnrepo\\mysql\\mysql-connector-java\\8.0.13\\mysql-connector-java-8.0.13.jar"/>-->
+<!--  <classPathEntry location="E:\\repo\\mysql\\mysql-connector-java\\8.0.23\\mysql-connector-java-8.0.23.jar"/>-->
 
   <!--
         context:生成一组对象的环境
@@ -61,8 +61,8 @@
     </commentGenerator>
 
     <!-- 必须要有的，使用这个配置链接数据库 -->
-    <jdbcConnection userId="root" password="123456" driverClass="com.mariadb.jdbc.Driver"
-                    connectionURL="jdbc:mariadb://192.168.1.4:3306/market?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+    <jdbcConnection userId="${db1.username}" password="${db1.password}"
+                    driverClass="${db1.driver-class-name}" connectionURL="${db1.url}"/>
 
     <!-- java类型处理器
             用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -101,7 +101,7 @@
       <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
       <property name="enableSubPackages" value="false"/>
       <property name="exampleTargetPackage" value="true"/>
-      <property name="exampleTargetProject" value="true"/>
+      <property name="exampleTargetProject" value="false"/>
       <!-- for MyBatis3 / MyBatis3Simple
                 是否创建一个不可变的类，如果为true，
                 那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类
@@ -123,7 +123,7 @@
                 或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置
             targetPackage/targetProject:同javaModelGenerator
     -->
-    <sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resources">
+    <sqlMapGenerator targetPackage="db1" targetProject="./src/main/resources/mapper">
       <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
       <property name="enableSubPackages" value="false"/>
     </sqlMapGenerator>
@@ -338,11 +338,74 @@
     </table>
 
   </context>
-  <context id="database2">
-    <jdbcConnection driverClass="" connectionURL=""></jdbcConnection>
-    <javaModelGenerator targetPackage="" targetProject=""></javaModelGenerator>
-    <sqlMapGenerator targetPackage="" targetProject=""></sqlMapGenerator>
-    <javaClientGenerator type="" targetPackage="" targetProject=""></javaClientGenerator>
-    <table tableName=""></table>
-  </context>
+
+<!--  <context id="database2"  targetRuntime="MyBatis3">-->
+<!--    <property name="autoDelimitKeywords" value="false"/>-->
+<!--    <property name="beginningDelimiter" value="`"/>-->
+<!--    <property name="endingDelimiter" value="`"/>-->
+<!--    <property name="javaFileEncoding" value="UTF-8"/>-->
+<!--    <property name="targetJava8" value="true"/>-->
+
+<!--    <commentGenerator>-->
+<!--      <property name="addRemarkComments" value="true"/>-->
+<!--    </commentGenerator>-->
+
+<!--    <jdbcConnection userId="${db2.username}" password="${db2.password}"-->
+<!--                    driverClass="${db2.driver-class-name}"-->
+<!--                    connectionURL="${db2.url}"/>-->
+
+<!--    <javaTypeResolver>-->
+<!--      <property name="forceBigDecimals" value="false"/>-->
+<!--    </javaTypeResolver>-->
+
+<!--    <javaModelGenerator targetPackage="com.raysaber.market.bean" targetProject="../market-bean/src/main/java">-->
+<!--      <property name="constructorBased" value="true"/>-->
+<!--      <property name="enableSubPackages" value="false"/>-->
+<!--      <property name="exampleTargetPackage" value="true"/>-->
+<!--      <property name="exampleTargetProject" value="false"/>-->
+<!--      <property name="immutable" value="false"/>-->
+<!--      <property name="trimStrings" value="true"/>-->
+<!--    </javaModelGenerator>-->
+
+<!--    <sqlMapGenerator targetPackage="db2" targetProject="./src/main/resources/mapper">-->
+<!--      <property name="enableSubPackages" value="false"/>-->
+<!--    </sqlMapGenerator>-->
+
+<!--    <javaClientGenerator targetPackage="com.raysaber.market.dao" type="XMLMAPPER" targetProject="../market-dao/src/main/java">-->
+<!--      <property name="enableSubPackages" value="false"/>-->
+<!--    </javaClientGenerator>-->
+
+<!--    <table tableName="MARKET_CART" domainObjectName="Cart" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_CATEGORY" domainObjectName="Category" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_ORDER" domainObjectName="Order" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_ORDER_ITEM" domainObjectName="OrderItem" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_PAY_INFO" domainObjectName="PayInfo" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_PRODUCT" domainObjectName="Product" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_SHIPPING" domainObjectName="Shipping" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--    <table tableName="MARKET_USER" domainObjectName="MarketUser" enableCountByExample="false"-->
+<!--           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--           selectByExampleQueryId="false">-->
+<!--    </table>-->
+<!--  </context>-->
 </generatorConfiguration>
